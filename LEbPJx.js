@@ -11,7 +11,10 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
   var output_ = document.querySelector(outputContainer);
 
   const CMDS_ = [
-    'cat', 'clear', 'clock', 'date', 'echo', 'help', 'uname', 'whoami'
+    'access_database() - access database', 
+    'set_directory() - set user directory', 
+    'date - show current date', 
+    'database_version() - show current database version', 
   ];
     
     
@@ -20,7 +23,8 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
   ];
     
 const commands = [
-    'get_accounts()', 'clear', 'clock', 'date', 'echo', 'help', 'uname', 'whoami'
+    'get_accounts() - show accounts',
+    'delete_account(accountnumber) - delete account'
   ];
 
   
@@ -130,6 +134,10 @@ const commands = [
         case 'date':
           output( new Date() );
           break;
+        case 'admin':
+          output('establishing access as admin...');
+          output('Admin access established. Type password and press enter:');
+          break;
         case 'echo':
           output( args.join(' ') );
           break;
@@ -138,6 +146,9 @@ const commands = [
           break;
         case 'elephantintheroom66':
          output('<div class="ls-files">' + commands.join('<br>') + '</div>');
+          break;
+        case 'help':
+         output(CMDS_.join('<br>'));
           break;
         case 'uname':
           output(navigator.appVersion);
@@ -151,8 +162,8 @@ const commands = [
         case 'access_database()':
           var url = args.join(' ');
           if (!url) {
-            output('establishing access to database...');
-            output('Access established. Type password and press enter:');
+            output('connecting to database...');
+            output('Type username to access database:');             
             break;        
           }
           $.get( url, function(data) {
