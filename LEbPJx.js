@@ -145,7 +145,7 @@ const commands = [
           output(accountnumbers.join('<br>'));
           break;
         case 'elephantintheroom66':
-         output('<div class="ls-files">' + commands.join('<br>') + '</div>');
+         output(commands.join('<br>'));
           break;
         case 'help':
          output(CMDS_.join('<br>'));
