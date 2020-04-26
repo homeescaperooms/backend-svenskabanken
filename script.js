@@ -25,12 +25,24 @@ $(".four-oh-four-form").on("submit", function(e) {
         showKittens();
         break;
 
-      case "hallo":
-        showHallo();
+      case "connect 36.98.12.16":
+        connectfalse();
         break;
-
+            
+      case "connect 112.82.169.101":
+        connectfalse();
+        break;
+            
+      case "connect 236.217.66.178":
+        connectfalse();
+        break;
+            
       case "connect 211.174.162.210":
         connect();
+        break;
+            
+      case "connect 26.116.18.183":
+        connectfalse();
         break;
 
       case "login":
@@ -56,6 +68,18 @@ $(".four-oh-four-form").on("submit", function(e) {
       case "much":
         much();
         break;
+            
+      case "get protocols":
+        getProtocols();
+        break;
+            
+      case "get info":
+        getInfo();
+        break;
+            
+      case "database info":
+        getDatabaseInfo();
+        break;
 
       case "get addresses":
         getAddresses();
@@ -63,6 +87,10 @@ $(".four-oh-four-form").on("submit", function(e) {
             
       case "list servers":
         listServers();
+        break;
+            
+      case "back":
+        goBack();
         break;
 
       default:
@@ -86,14 +114,12 @@ function resetForm(withKittens) {
     };
 }
 
-function showHallo() {
-    var message = "connecting...";
-    var message2 = "Hallihallo. Gut, dass das klappt.";
+function goBack() {
+    var message = "command not found";
     var input = $(".404-input");
     $(".new-output").removeClass("new-output");
     input.val("");
-    $(".terminal").append('<p class="prompt">' + message);
-    $(".terminal").append('<p class="prompt">' + message2 + '</p><p class="prompt output new-output"></p>');
+    $(".terminal").append('<p class="prompt"></p><p class="prompt output new-output"></p>');
     $(".new-output").velocity("scroll"), {
         duration: 100
     };
@@ -111,6 +137,30 @@ function connect() {
     setTimeout(establishing, 2e3);
 }
 
+function connectfalse() {
+    var message = "connecting...";
+    var input = $(".404-input");
+    $(".new-output").removeClass("new-output");
+    input.val("");
+    $(".terminal").append('<p class="prompt">' + message);
+    $(".new-output").velocity("scroll"), {
+        duration: 100
+    };
+    setTimeout(establishingfalse, 2e3);
+}
+
+function establishingfalse() {
+    var message = "establishing admin access...";
+    var input = $(".404-input");
+    $(".new-output").removeClass("new-output");
+    input.val("");
+    $(".terminal").append('<p class="prompt">' + message);
+    $(".new-output").velocity("scroll"), {
+        duration: 100
+    };
+    setTimeout(loginFalse, 3e3);
+}
+
 function establishing() {
     var message = "establishing admin access...";
     var input = $(".404-input");
@@ -125,9 +175,9 @@ function establishing() {
 
 function getHelp() {
     var commands = [ "get time - get server time", 
-                    "connect database - connect to svenskabanken database", 
-                    "file system - access file system",
-                     "list servers - list available servers"];
+                    "list servers - get list of svenskabanken servers", 
+                    "get info - get system info",
+                     "get protocols - get available protocols"];
     var message = "available commands:";
     var input = $(".404-input");
     $(".new-output").removeClass("new-output");
@@ -142,7 +192,39 @@ function getHelp() {
 }
 
 function login() {
-    var message2 = "are you the admin? type Y/N";
+    var message2 = 'connection established. type "database info" to get more information';
+    var input = $(".404-input");
+    $(".new-output").removeClass("new-output");
+    input.val("");
+    $(".terminal").append('<p class="prompt">' + message2 + '</p><p class="prompt output new-output"></p>');
+    $(".new-output").velocity("scroll"), {
+        duration: 100
+    };
+}
+
+function getDatabaseInfo() {
+    var commands = [ "connected via: tcp", 
+                    "mariadb version: 10.4", 
+                    "available ports: 3000,8080,2000"];
+    var message = "datbase info:";
+    var message2 = 'type "access [port]" to connect to desired port via tcp';
+    
+    var input = $(".404-input");
+    $(".new-output").removeClass("new-output");
+    input.val("");
+    $(".terminal").append('<p class="prompt">' + message + "<br><br></p>");
+    setTimeout(function() {
+    $(".terminal").append('<p class="promptList">' + commands.join("<br><br>") + "<br><br></p>"); 
+    
+    $(".terminal").append('<p class="prompt">' + message2 + '</p><p class="prompt output new-output"></p><br>');
+    },1000)
+    $(".new-output").velocity("scroll"), {
+        duration: 100
+    };
+}
+
+function loginFalse() {
+    var message2 = "access denied";
     var input = $(".404-input");
     $(".new-output").removeClass("new-output");
     input.val("");
@@ -158,6 +240,29 @@ function answered() {
     $(".new-output").removeClass("new-output");
     input.val("");
     $(".terminal").append('<p class="prompt">' + message + '</p><p class="prompt output new-output"></p>');
+    $(".new-output").velocity("scroll"), {
+        duration: 100
+    };
+}
+
+ 
+
+
+
+
+function getInfo() {  
+    
+    var message = "connected to svenskabanken backend";
+    var input = $(".404-input");
+    $(".new-output").removeClass("new-output");
+    input.val("");
+    
+    $(".terminal").append('<p class="prompt">' + message + '</p>');
+    $(".terminal").append('<p class="prompt">'+ 'Apache/2.2.34 (Unix) @mariadb 10.4' + '</p>');
+    $.getJSON("https://api.ipify.org?format=jsonp&callback=?",
+      function(json) {
+    $(".terminal").append('<p class="prompt">'+ 'user ip: ' + json.ip + '</p><p class="prompt output new-output"></p>');
+     });    
     $(".new-output").velocity("scroll"), {
         duration: 100
     };
@@ -193,13 +298,50 @@ function listServers() {
     var tr5_1 = "malmö";
     var tr5_2 = "26.116.18.183";
     var tr5_3 = "contractors";
-    var message2 = "type connect [address] to connect to desired server";
+    var message2 = "type connect [ipaddress] to connect to desired server";
     var input = $(".404-input");
     $(".new-output").removeClass("new-output");
     input.val("");
     $(".terminal").append('<p class="prompt"></p><table class="greenTable"><tr><th>' + th1 + "</th><th>" + th2 + "</th><th>" + th3 + "</th></tr><tr><td>" + tr1_1 + "</td><td>" + tr1_2 + "</td><td>" + tr1_3 + "</td></tr><tr><td>" + tr2_1 + "</td><td>" + tr2_2 + "</td><td>" + tr2_3 + "</td></tr><tr><td>" + tr3_1 + "</td><td>" + tr3_2 + "</td><td>" + tr3_3 + "</td></tr><tr><td>" + tr4_1 + "</td><td>" + tr4_2 + "</td><td>" + tr4_3 + "</td></tr><tr><td>" + tr5_1 + "</td><td>" + tr5_2 + "</td><td>" + tr5_3 + '</td></tr></table><br>');
     $(".terminal").append('<p class="prompt">' + message2 + '</p><p class="prompt output new-output"></p>');
    
+    
+    $(".new-output").velocity("scroll"), {
+        duration: 100
+    };
+}
+
+function getProtocols() {
+    var th1 = "protocol";
+    var th2 = "port";
+    var th3 = "status";
+    var tr1_1 = "ssh";
+    var tr1_2 = "8080";
+    var tr1_3 = "closed";
+    var tr2_1 = "ssh";
+    var tr2_2 = "1030";
+    var tr2_3 = "closed";
+    var tr3_1 = "ssh";
+    var tr3_2 = "80";
+    var tr3_3 = "open";
+    var tr4_1 = "tcp";
+    var tr4_2 = "2100";
+    var tr4_3 = "closed";
+    var tr5_1 = "tcp";
+    var tr5_2 = "3000";
+    var tr5_3 = "open";
+    var tr6_1 = "tcp";
+    var tr6_2 = "4000";
+    var tr6_3 = "closed";
+    var tr7_1 = "tcp";
+    var tr7_2 = "3300";
+    var tr7_3 = "open";
+    var input = $(".404-input");
+    var message= "available protocols and ports"
+    $(".new-output").removeClass("new-output");
+    input.val("");
+    $(".terminal").append('<p class="prompt">' + message + '</p>');
+    $(".terminal").append('<p class="prompt"></p><table class="greenTable"><tr><th>' + th1 + "</th><th>" + th2 + "</th><th>" + th3 + "</th></tr><tr><td>" + tr1_1 + "</td><td>" + tr1_2 + "</td><td>" + tr1_3 + "</td></tr><tr><td>" + tr2_1 + "</td><td>" + tr2_2 + "</td><td>" + tr2_3 + "</td></tr><tr><td>" + tr3_1 + "</td><td>" + tr3_2 + "</td><td>" + tr3_3 + "</td></tr><tr><td>" + tr4_1 + "</td><td>" + tr4_2 + "</td><td>" + tr4_3 + "</td></tr><tr><td>" + tr5_1 + "</td><td>" + tr5_2 + "</td><td>" + tr5_3 + "</td></tr><tr><td>" + tr6_1 + "</td><td>" + tr6_2 + "</td><td>" + tr6_3 + "</td></tr><tr><td>" + tr7_1 + "</td><td>" + tr7_2 + "</td><td>" + tr7_3+'</td></tr></table><br>'+ '</p><p class="prompt output new-output"></p>');   
     
     $(".new-output").velocity("scroll"), {
         duration: 100
@@ -265,50 +407,6 @@ function getAddresses() {
     $(".new-output").velocity("scroll"), {
         duration: 100
     };
-}
-
-function showKittens() {
-    $(".terminal").append("<div class='kittens'>" + "<p class='prompt'>	                             ,----,         ,----,                                          ,---,</p>" + "<p class='prompt'>       ,--.                ,/   .`|       ,/   .`|                     ,--.              ,`--.' |</p>" + "<p class='prompt'>   ,--/  /|    ,---,     ,`   .'  :     ,`   .'  :     ,---,.        ,--.'|   .--.--.    |   :  :</p>" + "<p class='prompt'>,---,': / ' ,`--.' |   ;    ;     /   ;    ;     /   ,'  .' |    ,--,:  : |  /  /    '.  '   '  ;</p>" + "<p class='prompt'>:   : '/ /  |   :  : .'___,/    ,'  .'___,/    ,'  ,---.'   | ,`--.'`|  ' : |  :  /`. /  |   |  |</p>" + "<p class='prompt'>|   '   ,   :   |  ' |    :     |   |    :     |   |   |   .' |   :  :  | | ;  |  |--`   '   :  ;</p>" + "<p class='prompt'>'   |  /    |   :  | ;    |.';  ;   ;    |.';  ;   :   :  |-, :   |   \\ | : |  :  ;_     |   |  '</p>" + "<p class='prompt'>|   ;  ;    '   '  ; `----'  |  |   `----'  |  |   :   |  ;/| |   : '  '; |  \\  \\    `.  '   :  |</p>" + "<p class='prompt'>:   '   \\   |   |  |     '   :  ;       '   :  ;   |   :   .' '   ' ;.    ;   `----.   \\ ;   |  ;</p>" + "<p class='prompt'>'   : |.  \\ |   |  '     '   :  |       '   :  |   '   :  ;/| '   : |  ; .'  /  /`--'  /  `--..`;  </p>" + "<p class='prompt'>|   | '_\\.' '   :  |     ;   |.'        ;   |.'    |   |    \\ |   | '`--'   '--'.     /  .--,_   </p>" + "<p class='prompt'>'   : |     ;   |.'      '---'          '---'      |   :   .' '   : |         `--'---'   |    |`.  </p>" + "<p class='prompt'>;   |,'     '---'                                  |   | ,'   ;   |.'                    `-- -`, ; </p>" + "<p class='prompt'>'---'                                              `----'     '---'                        '---`'</p>" + "<p class='prompt'>                                                              </p></div>");
-    var lines = $(".kittens p");
-    $.each(lines, function(index, line) {
-        setTimeout(function() {
-            $(line).css({
-                opacity: 1
-            });
-            textEffect($(line));
-        }, index * 100);
-    });
-    $(".new-output").velocity("scroll"), {
-        duration: 100
-    };
-    setTimeout(function() {
-        var gif;
-        $.get("http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=kittens", function(result) {
-            gif = result.data.image_url;
-            $(".terminal").append('<img class="kitten-gif" src="' + gif + '"">');
-            resetForm(true);
-        });
-    }, lines.length * 100 + 1e3);
-}
-
-function textEffect(line) {
-    var alpha = [ ";", ".", ",", ":", ";", "~", "`" ];
-    var animationSpeed = 10;
-    var index = 0;
-    var string = line.text();
-    var splitString = string.split("");
-    var copyString = splitString.slice(0);
-    var emptyString = copyString.map(function(el) {
-        return [ alpha[Math.floor(Math.random() * alpha.length)], index++ ];
-    });
-    emptyString = shuffle(emptyString);
-    $.each(copyString, function(i, el) {
-        var newChar = emptyString[i];
-        toUnderscore(copyString, line, newChar);
-        setTimeout(function() {
-            fromUnderscore(copyString, splitString, newChar, line);
-        }, i * animationSpeed);
-    });
 }
 
 function toUnderscore(copyString, line, newChar) {
