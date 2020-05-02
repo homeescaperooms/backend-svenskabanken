@@ -1,0 +1,80 @@
+html {
+  font-family: monospace;
+  background: #222;
+  color: #fff;
+  line-height: 1.25;
+  font-size: 1.5rem;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 768px;
+}
+
+td,
+th {
+  padding: 0.25rem 0.5rem;
+}
+
+th {
+  text-align: left;
+  text-decoration: underline;
+}
+
+a,
+a:visited {
+  color: rgb(77, 142, 226);
+}
+
+a:hover {
+  color: rgb(127, 180, 250);
+}
+
+.no-access > * {
+  color: gray;
+  cursor: not-allowed;
+}
+
+.typewriter {
+  display: inline-table;
+  width: fit-content;
+}
+
+.typewriter h1 {
+  overflow: hidden;
+  border-right: 0.15em solid white;
+  white-space: nowrap;
+  display: inline-block !important;
+  letter-spacing: 0.25rem;
+  animation: typing 2.5s steps(12, end), blink-caret 0.85s step-end infinite;
+}
+
+.typewriter h1::before {
+  content: "> ";
+}
+
+.typewriter h1::after {
+  content: "_";
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
+  }
+}

@@ -1,28 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>backend</title>
-  <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/mvp.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Svenska Banken Online Banking</title>
 </head>
-<body>
-<!-- partial:index.partial.html -->
-<div class="container">
-  <form class="four-oh-four-form">
-    <input type="text" class="404-input">
-  </form>
 
-  <div class="terminal">
-      <p class="promptNoMotion">svenska banken database</p>
-      <p class="prompt">Type "help" to get available commands</p>
-      <p class="prompt output new-output"></p>
-  </div>
-</div>
+<body class="full-width-wrapper">
+    <header class="center">
+        <a href="http://svenskabanken.com"><img alt="Logo" src="res/logo.png" height="90"></a>
+    </header>
+    <main>
+        <section>
+            <form id="login">
+               
+                <p>svenska banken - admin login</p>
 
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.2/velocity.min.js'></script><script  src="./script.js"></script>
-    <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+                <label for="input_pass">password:</label>
+                <input type="password" id="input_pass" name="input_pass" size="28" placeholder="Passwort">
+
+                <button type="submit">Absenden</button>
+                <a target="_blank" href="https://locked-adventures.de/der-fall/07puzzle.html" style="color:#b26008;font-size:11pt"><p>Kennwort vergessen?</p></a>
+            </form>
+        </section>
+    </main>
+    <footer class="center">
+        <p>
+            © Svenska Banken 2020
+        </p>
+    </footer>
+
+    <script src="js/login1.js"></script>
 </body>
+
 </html>
