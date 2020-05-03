@@ -1,4 +1,6 @@
 var inputReady = true;
+var onServer = false;
+var onDatabase = false;
 
 var input = $(".404-input");
 
@@ -50,16 +52,8 @@ $(".four-oh-four-form").on("submit", function(e) {
         answered();
     break;
 
-    case "admin":
-        madeit();
-    break;
-
     case "get time":
         getTime();
-    break;
-
-    case "much":
-        much();
     break;
 
     case "get protocols":
@@ -72,10 +66,6 @@ $(".four-oh-four-form").on("submit", function(e) {
 
     case "database info":
         getDatabaseInfo();
-    break;
-
-    case "get addresses":
-        getAddresses();
     break;
 
     case "list servers":
@@ -125,8 +115,24 @@ $(".four-oh-four-form").on("submit", function(e) {
     case "open rqumxruaoj.hash":
         fileCorrupted();
     break;
+    
+    case "open xopmhjwdyp.hash":
+        fileCorrupted();
+    break;
+    
+    case "open riskassessment19.xlsx":
+        cannotOpen();
+    break;
+            
+    case "open secretproject_22.pptx":
+        cannotOpen();
+    break;
+            
+    case "open complaints2020.csv":
+        getComplaints();
+    break;
 
-
+            
       default:
         beep.play();
         resetForm();
@@ -232,6 +238,7 @@ function accessingFalse() {
 }
 
 function getInto() {
+    window.onDatabase = true;
     var message2 = 'access granted. type [list files] to list files in current directory';
     var input = $(".404-input");
     $(".new-output").removeClass("new-output");
@@ -263,7 +270,23 @@ function fileCorrupted() {
     setTimeout(function() {
     $(".terminal").append('<p class="prompt">' + message2 + '</p><p class="prompt output new-output"></p>');
           beep.play();
-    },1000)
+    },2000)
+    $(".new-output").velocity("scroll"), {
+        duration: 100
+    };
+}
+
+function cannotOpen() {
+    var message = "opening file...";
+    var message2 = "can't open file: fileprocessor missing";
+    var input = $(".404-input");
+    $(".new-output").removeClass("new-output");
+    input.val("");
+    $(".terminal").append('<p class="prompt">' + message + '</p>');
+    setTimeout(function() {
+    $(".terminal").append('<p class="prompt">' + message2 + '</p><p class="prompt output new-output"></p>');
+          beep.play();
+    },2000)
     $(".new-output").velocity("scroll"), {
         duration: 100
     };
@@ -303,6 +326,9 @@ function listFiles() {
     var message = "/var/system/";
     var message2 = "type [open filename] to open a file"
     var input = $(".404-input");
+    var errmessage = "access denied";
+    
+    if(window.onDatabase == true){
     $(".new-output").removeClass("new-output");
     input.val("");
     $(".terminal").append('<p class="prompt">' + message + "<br><br></p>");
@@ -315,6 +341,15 @@ function listFiles() {
     $(".new-output").velocity("scroll"), {
         duration: 100
     };
+    } else {
+        beep.play();
+        $(".new-output").removeClass("new-output");
+    input.val("");
+    $(".terminal").append('<p class="prompt">' + errmessage + '</p><p class="prompt output new-output"></p>');
+    $(".new-output").velocity("scroll"), {
+        duration: 100
+    };
+    }
 }
 
 function showTransactions(name) {
@@ -3326,6 +3361,7 @@ function showTransactions(name) {
     ]
     var message = "opening file...";
     var input = $(".404-input");
+    
     if(name == "transactions2020-jan.csv"){
        $(".new-output").removeClass("new-output");
     input.val("");
@@ -3378,12 +3414,14 @@ function showTransactions(name) {
     }; 
        }
     
+    
 }
 
 
 
 
 function login() {
+    window.onServer = true;
     var message2 = 'connection established. type [database info] to get more information';
     var input = $(".404-input");
     $(".new-output").removeClass("new-output");
@@ -3438,6 +3476,26 @@ function answered() {
 }
 
  
+function getComplaints() {
+    var commands = ["Kund 13723829: det här företaget är det sista.",
+                    "Kund 13963829: Jag trodde att mina pengar skulle samlas säkert. Inte", "Kund 13973829: Trodde till och med att ett lån skulle vara en bra investering - sådant nonsens!", "Kund 13987829: Under tiden är jag skyldig 10000000kr och jag vet inte var den är under eller över!",
+                   "Kund 14783829: Dessa kundrådgivare är den sista galen. Jag var i kö i en timme - aldrig mer!",
+                   "Kund 13723299: Jag försökte prata med 'kundservice' i timmar - det enda jag höll på var: 'Tyvärr förstod jag inte det'"];
+    var message = "opening file...";
+    
+    var input = $(".404-input");
+    $(".new-output").removeClass("new-output");
+    input.val("");
+    $(".terminal").append('<p class="prompt">' + message + "<br><br></p>");
+    setTimeout(function() {
+    $(".terminal").append('<p class="promptList">' + commands.join("<br><br>") + "<br><br></p>"); 
+    
+    $(".terminal").append('<p class="prompt">' + message2 + '</p><p class="prompt output new-output"></p><br>');
+    },2000)
+    $(".new-output").velocity("scroll"), {
+        duration: 100
+    };
+}
 
 
 
@@ -3455,17 +3513,6 @@ function getInfo() {
       function(json) {
     $(".terminal").append('<p class="prompt">'+ 'user ip: ' + json.ip + '</p><p class="prompt output new-output"></p>');
      });    
-    $(".new-output").velocity("scroll"), {
-        duration: 100
-    };
-}
-
-function madeit() {
-    var message = "you made it!";
-    var input = $(".404-input");
-    $(".new-output").removeClass("new-output");
-    input.val("");
-    $(".terminal").append('<p class="prompt">' + message + '</p><p class="prompt output new-output"></p>');
     $(".new-output").velocity("scroll"), {
         duration: 100
     };
@@ -3550,52 +3597,6 @@ function getTime() {
     $(".new-output").removeClass("new-output");
     input.val("");
     $(".terminal").append('<p class="prompt">' + message + hours + ":" + minutes + ":" + seconds + '</p><p class="prompt output new-output"></p>');
-    $(".new-output").velocity("scroll"), {
-        duration: 100
-    };
-}
-
-function much() {
-    var message1 = "traceroute 185.199.111.153";
-    var message2 = "de-fra01b-ri2-ae-29-0.aorta.net (84.116.134.162)  18.513 ms  19.006 ms  28.3 {";
-    var message3 = "de-fra01b-ri2-ae-29-0.aorta.net (84.116.134.162)  18.513 ms  19.006 ms  28.351 ms;";
-    var message4 = "};";
-    var message5 = "while (--i >= 0) {";
-    var message6 = "free_page((unsigned long)group_info->blocks[i]);";
-    var input = $(".404-input");
-    $(".new-output").removeClass("new-output");
-    input.val("");
-    $(".terminal").append('<p class="prompt">' + message1 + "<br><br></p>");
-    setTimeout(function() {
-        $(".terminal").append('<p class="prompt">' + message2 + "<br><br></p>");
-    }, 1e3);
-    setTimeout(function() {
-        $(".terminal").append('<p class="prompt">' + message3 + "<br><br></p>");
-    }, 2e3);
-    setTimeout(function() {
-        $(".terminal").append('<p class="prompt">' + message4 + "<br><br></p>");
-    }, 3e3);
-    setTimeout(function() {
-        $(".terminal").append('<p class="prompt">' + message5 + "<br><br></p>");
-    }, 4e3);
-    setTimeout(function() {
-        $(".terminal").append('<p class="prompt">' + message6 + "<br><br></p>");
-    }, 5e3);
-    $(".new-output").velocity("scroll"), {
-        duration: 100
-    };
-}
-
-function getAddresses() {
-    var commands = [ "185.199.111.153 - data backup", "84.116.134.162 - shareholder database", "11.98.167.162 - product database", "11.98.167.162 - customers database" ];
-    var message = "network servers:";
-    var message2 = "type connect [address] to connect to desired server";
-    var input = $(".404-input");
-    $(".new-output").removeClass("new-output");
-    input.val("");
-    $(".terminal").append('<p class="prompt">' + message + "<br><br></p>");
-    $(".terminal").append('<p class="promptList">' + commands.join("<br><br>") + "<br><br></p");
-    $(".terminal").append('<p class="prompt">' + message2 + '</p><p class="prompt output new-output"><br></p>');
     $(".new-output").velocity("scroll"), {
         duration: 100
     };
