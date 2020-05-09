@@ -3154,7 +3154,7 @@ function showTransactions(name) {
 "SE4884547802422454634981 - Olivia Erdlund",
 "SE0306282635913955062427 - Diana Martin",
 "SE4294830524127332910006 - Emrik Cecilia Hjort",
-"SE3887571119318478566674 - Nationella Byggmaterial Testinstitutet",
+"SE3887571119318478566674 - Dr.-Ing Olle Nordin",
 "SE8988783893850082520410 - Linda Emilia Svedrikson",
 "SE7948704572950282452020 - Alicia Zagreb",
 "SE0508437657508350261656 - Kevin Martin",
@@ -3533,7 +3533,7 @@ function listServers() {
     var tr3_3 = "localizations";
     var tr4_1 = "skelefteå";
     var tr4_2 = "211.174.162.210";
-    var tr4_3 = "customers";
+    var tr4_3 = "transactions";
     var tr5_1 = "malmö";
     var tr5_2 = "26.116.18.183";
     var tr5_3 = "contractors";
