@@ -3481,7 +3481,7 @@ function getComplaints() {
                     "Kund 13963829: Jag trodde att mina pengar skulle samlas säkert. Inte", "Kund 13973829: Trodde till och med att ett lån skulle vara en bra investering - sådant nonsens!", "Kund 13987829: Under tiden är jag skyldig 10000000kr och jag vet inte var den är under eller över!",
                    "Kund 14783829: Dessa kundrådgivare är den sista galen. Jag var i kö i en timme - aldrig mer!",
                    "Kund 13723299: Jag försökte prata med 'kundservice' i timmar - det enda jag höll på var: 'Tyvärr förstod jag inte det'",
-                   "Kund 13123249: Detta företag är inte bara det största röran - de är brottslingar. Jag hoppas att de går sönder! <br><br>Sådana sexister ... och det säger jag, även om jag är den enda kvinnliga anställda i mitt företag."];
+                   "Kund 13123249: Detta företag är inte bara det största röran - de är brottslingar. Jag hoppas att de går sönder! <br><br>Sådana sexister ... och det säger jag, även om jag är den enda kvinnliga anställda i mitt finskt säkerhetsföretag."];
     var message = "opening file...";
     
     var input = $(".404-input");
